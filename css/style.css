@@ -1,0 +1,49 @@
+html {
+	height	: 100%;
+}
+#banner{
+	font-family: 'Uncial Antiqua', cursive;
+	color: #0c865c;
+	text-align: center;
+	padding: 10px;
+	background: rgb(156,217,244);
+	background: -moz-linear-gradient(0deg, rgba(156,217,244,1) 0%, rgba(234,242,255,1) 100%);
+	background: -webkit-linear-gradient(0deg, rgba(156,217,244,1) 0%, rgba(234,242,255,1) 100%);
+	background: linear-gradient(0deg, rgba(156,217,244,1) 0%, rgba(234,242,255,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9cd9f4",endColorstr="#eaf2ff",GradientType=1);
+}
+body{
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+	background: rgb(234,242,255);
+	background: -moz-linear-gradient(0deg, rgba(234,242,255,1) 0%, rgba(156,217,244,1) 100%);
+	background: -webkit-linear-gradient(0deg, rgba(234,242,255,1) 0%, rgba(156,217,244,1) 100%);
+	background: linear-gradient(0deg, rgba(234,242,255,1) 0%, rgba(156,217,244,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#eaf2ff",endColorstr="#9cd9f4",GradientType=1);
+}
+div{
+	border: 1px solid rgb(86, 156, 158);
+
+}
+.sticky{
+	position: sticky;
+	top: 0;
+}
+
+canvas{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+
+}
+
+#canvasBackground{
+
+
+}
+
+#canvasBranches{
+	stroke: orange;
+}
