@@ -3,7 +3,8 @@ const canvasWidth = 1080;
 const canvasHeight = 1080;
 
 let bgCanvas;
-let branchCanvas;
+let fireFractal;
+let treeFractal;
 
 function initializeCanvas(canvasID){
     const canvas = document.getElementById(canvasID);
@@ -13,18 +14,27 @@ function initializeCanvas(canvasID){
 }
 
 var red = 0;
+var blue = 0;
+var green = 0;
+var greenGoUp = true;
 var redGoUp = true;
+var blueGoUp = false;
 console.log('red',red);
 
 function main(){
-    console.log('test');
     bgCanvas = initializeCanvas('canvasBackground');
-    branchCanvas = initializeCanvas('canvasBranches');
-    const treeLocation = [canvasWidth * 0.5, canvasHeight* 0.85];
-    drawBranches(branchCanvas, treeLocation, 80, 0, 10);
+    drawTreeFractal();
 }
 
-function drawBranches(canvas, start, len, angle, branchWidth){
+function drawFireFractal(){
+    console.log('fire up');
+
+    fireFractal = initializeCanvas('fireFractal');
+    const treeLocation = [canvasWidth * 0.5, canvasHeight* 0.95];   
+    drawSmoke(fireFractal, treeLocation, 100, 90, 10);   
+}
+
+function drawSmoke(canvas, start, len, angle, branchWidth){
     const ctx = canvas.getContext('2d');
     ctx.beginPath();
     ctx.save();
@@ -32,40 +42,92 @@ function drawBranches(canvas, start, len, angle, branchWidth){
     ctx.translate(...start);
     ctx.rotate(angle*Math.PI/180);
 
-
+    // red
     if  (redGoUp == true){
-        red += .21;
-        ctx.strokeStyle = 'rgb(' + red + ',162, '+ red/3 + ')';
-        console.log('red up',red);
+        red += .91;
+        ctx.strokeStyle = `rgb(${red}, ${green},${blue})`
     }
     if  (red >= 255){
         redGoUp = false;
-        console.log('flip to red down');
     }
-
-
     if  (redGoUp == false){
-        red -= .21;
-        ctx.strokeStyle = 'rgb('+red+',162,63)';
-        console.log('red down',red);
+        red -= .91;
+        ctx.strokeStyle = `rgb(${red}, ${green},${blue})`
     }
     if  (red <= 0){
         redGoUp = true;
-        console.log('flip to red up');
     }
 
+
+    // blue
+    if  (blueGoUp == true){
+        blue += .1;
+    }
+    if  (blue >= 255){
+        blueGoUp = false;
+    }
+
+    if  (blueGoUp == false){
+        blue -= .1;
+    }
+    if  (blue <= 0){
+        blueGoUp = true;
+    }
+
+    // green
+    if  (greenGoUp == true){
+        green += .1;
+    }
+    if  (green >= 255){
+        greenGoUp = false;
+    }
+
+    if  (greenGoUp == false){
+        green -= .1;
+    }
+    if  (green <= 0){
+        greenGoUp = true;
+    }
     ctx.moveTo(0,0);
     ctx.lineTo(0, -len);
     ctx.stroke();
 
 
     if (len > 1 && branchWidth > 1) {
-        drawBranches(canvas, [0,-(len)], len * 0.8 , 40, branchWidth * .8);
-        drawBranches(canvas, [0,-(len)], len * 0.85 , -10, branchWidth * 0.8);
 
-
-        console.log('draw');
+    setTimeout(function(){     
+        drawSmoke(canvas, [0,-(len)], len * 0.6 , red, branchWidth * .9);
+        drawSmoke(canvas, [30,-(len)], len * 0.85 , -94, branchWidth * 0.9);
+    }, 100);            
     }
-    ctx.restore();
+};
 
+
+
+
+function drawTreeFractal(){
+    console.log('tree up');
+    treeFractal = initializeCanvas('treeFractal');
+    const treeLocation = [canvasWidth * 0.2, canvasHeight* 0.95];   
+    drawBranches(treeFractal, treeLocation, 400, 0, 60);   
+}
+
+function drawBranches(canvas, start, len, angle, branchWidth){
+    const ctxtree = canvas.getContext('2d');
+    ctxtree.beginPath();
+    ctxtree.save();
+    ctxtree.lineWidth = branchWidth;
+    ctxtree.translate(...start);
+    ctxtree.rotate(angle*Math.PI/180);
+
+    ctxtree.moveTo(0,0);
+    ctxtree.lineTo(0, -len);
+    ctxtree.stroke();
+
+
+    if (len > 1 && branchWidth > 1) {
+        drawBranches(canvas, [0,-len], len*0.5+branchWidth*1.1, 20, branchWidth * 0.7);
+        drawBranches(canvas, [0,-len], len*0.5+branchWidth*1.1, -20, branchWidth * 0.3);
+   
+    }
 };
