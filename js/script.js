@@ -24,7 +24,14 @@ console.log('red',red);
 function main(){
     bgCanvas = initializeCanvas('canvasBackground');
     drawTreeFractal();
+    drawFireFractal();
 }
+
+document.getElementById('drawFire').addEventListener("click", function(){
+    drawFireFractal();
+    console.log('click button');
+  });
+
 
 function drawFireFractal(){
     console.log('fire up');
